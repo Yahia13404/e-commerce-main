@@ -1,0 +1,62 @@
+<div class="relative mb-1">
+  @if (element === 'input') {
+    <input
+      [formControl]="control"
+      [type]="typeInput || (flag ? 'password' : 'text')"
+      [id]="idInput"
+      class="main-input peer"
+      placeholder=" "
+    />
+
+  } @else if (element === 'text') {
+    <textarea
+      [formControl]="control"
+      [id]="idInput"
+      class="main-input peer"
+      placeholder=" "
+    ></textarea>
+  }
+
+  <label [for]="idInput" class="main-label">{{ labelInput }}</label>
+
+  @if (idInput === 'password' || idInput === 'rePassword') {
+    <span (click)="flag = !flag" class="absolute top-1/2 end-4 -translate-y-1/2 cursor-pointer">
+      @if (flag === true) {
+        <i class="fas fa-eye"></i>
+      } @else {
+        <i class="fas fa-eye-slash"></i>
+      }
+    </span>
+  }
+</div>
+
+@if (control?.errors && control?.touched) {
+  <div
+    class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+    role="alert"
+  >
+    <ul class="mt-1.5 list-disc list-inside">
+      @if (control?.hasError('required')) {
+        <li>Input is required</li>
+      }
+      @if (control?.hasError('minlength')) {
+        <li>Input should be more than or equal 2 chars</li>
+      }
+      @if (control?.hasError('maxlength')) {
+        <li>Input should be less than or equal 20 chars</li>
+      }
+      @if (control?.hasError('email')) {
+        <li>Please enter a valid email adress</li>
+      }
+      @if (control?.hasError('pattern')) {
+        <li>
+          <ng-content />
+        </li>
+      }
+      <!-- <li>Accept only egypt phone number</li> -->
+      @if (control?.hasError('mismatch')) {
+        <li>Password confirmartion is incorrect</li>
+      }
+    </ul>
+  </div>
+}

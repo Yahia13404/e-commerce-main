@@ -1,0 +1,135 @@
+<div class="max-w-7xl mx-auto px-4 py-12 bg-gray-50/50 min-h-screen">
+  <div class="flex items-center justify-between mb-8">
+    <h1 class="text-3xl font-black text-gray-900 tracking-tight">Shopping Bag</h1>
+    <span class="text-sm font-bold text-emerald-600 bg-emerald-50 px-4 py-2 rounded-full">
+      {{ cartDetails.products.length }} Items
+    </span>
+  </div>
+
+  <div class="grid lg:grid-cols-3 gap-10">
+    <div class="lg:col-span-2 space-y-4">
+      @for (item of cartDetails.products; track item._id) {
+        <div
+          class="group flex flex-col sm:flex-row items-center bg-white p-5 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300"
+        >
+          <div
+            class="w-32 h-32 bg-gray-50 rounded-2xl overflow-hidden flex-shrink-0 flex items-center justify-center p-2"
+          >
+            <img
+              [src]="item.product.imageCover"
+              class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition duration-500"
+            />
+          </div>
+
+          <div class="flex-1 sm:ml-6 mt-4 sm:mt-0 w-full">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-lg font-bold text-gray-800 line-clamp-1 leading-tight">
+                  {{ item.product.title }}
+                </h3>
+                <p class="text-emerald-600 font-bold mt-1 text-sm">{{ item.price }} EGP</p>
+              </div>
+
+              <div class="hidden sm:block text-right">
+                <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">Subtotal</p>
+                <p class="text-lg font-black text-gray-900">
+                  {{ item.price * item.count }} <small class="text-[10px]">EGP</small>
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between mt-6">
+              <div class="flex items-center bg-gray-100 rounded-xl p-1 shadow-inner">
+                <button
+                  (click)="updateCount(item.product._id, item.count - 1)"
+                  [disabled]="item.count <= 1"
+                  class="w-8 cursor-pointer h-8 flex items-center justify-center rounded-lg hover:bg-white hover:shadow-sm text-gray-600 transition disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  <i class="fa-solid fa-minus text-xs"></i>
+                </button>
+
+                <span class="font-bold w-10 text-center text-gray-800 text-sm">
+                  {{ item.count }}
+                </span>
+
+                <button
+                  (click)="updateCount(item.product._id, item.count + 1)"
+                  class="w-8 cursor-pointer h-8 flex items-center justify-center rounded-lg hover:bg-white hover:shadow-sm text-gray-600 transition"
+                >
+                  <i class="fa-solid fa-plus text-xs"></i>
+                </button>
+              </div>
+
+              <button
+                (click)="removeItem(item.product._id)"
+                class="flex cursor-pointer items-center gap-2 text-gray-400 hover:text-red-500 transition-colors duration-300 text-sm font-medium"
+              >
+                <i class="fa-regular fa-trash-can"></i>
+                <span class="hidden sm:inline">Remove</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="space-y-6">
+      <div
+        class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm h-fit sticky top-6"
+      >
+        <h2 class="text-xl font-black text-gray-900 mb-6 tracking-tight">Order Summary</h2>
+
+        <div class="space-y-4">
+          <div class="flex justify-between text-gray-500 text-sm font-medium">
+            <span>Subtotal</span>
+            <span class="text-gray-900 font-bold">{{ cartDetails.totalCartPrice }} EGP</span>
+          </div>
+          <div class="flex justify-between text-gray-500 text-sm font-medium">
+            <span>Estimated Shipping</span>
+            <span class="text-emerald-600 font-bold uppercase text-[10px] tracking-widest"
+              >Free</span
+            >
+          </div>
+          <div
+            class="flex justify-between text-gray-500 text-sm font-medium border-b border-gray-50 pb-4"
+          >
+            <span>Estimated Tax</span>
+            <span class="text-gray-900 font-bold">--</span>
+          </div>
+
+          <div class="flex justify-between text-xl font-black pt-2">
+            <span class="text-gray-900">Total</span>
+            <span class="text-emerald-600">{{ cartDetails.totalCartPrice }} EGP</span>
+          </div>
+        </div>
+
+        <button
+          [routerLink]="['/checkout', cartDetails._id]"
+          class="w-full cursor-pointer mt-8 bg-emerald-500 hover:bg-emerald-600 text-white py-4 rounded-2xl font-bold shadow-lg shadow-emerald-100 transition-all active:scale-95 flex items-center justify-center gap-3"
+        >
+          Check out
+          <i class="fa-solid fa-arrow-right text-sm"></i>
+        </button>
+
+        <div
+          class="mt-8 pt-6 border-t border-gray-50 flex justify-center items-center gap-4 text-gray-300 text-xl"
+        >
+          <i class="fa-brands fa-cc-visa hover:text-blue-600 transition cursor-pointer"></i>
+          <i class="fa-brands fa-cc-mastercard hover:text-orange-500 transition cursor-pointer"></i>
+          <i class="fa-brands fa-cc-paypal hover:text-blue-800 transition cursor-pointer"></i>
+          <i class="fa-brands fa-cc-apple-pay hover:text-black transition cursor-pointer"></i>
+        </div>
+      </div>
+
+      <div
+        class="bg-emerald-50/50 p-5 rounded-2xl border border-emerald-100/50 flex items-start gap-3"
+      >
+        <i class="fa-solid fa-shield-halved text-emerald-600 mt-1"></i>
+        <p class="text-[11px] text-emerald-800 leading-relaxed font-medium">
+          <strong>Secure Checkout:</strong> Your personal and payment details are encrypted and
+          safe.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

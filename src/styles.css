@@ -1,0 +1,52 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
+@import 'flowbite/src/themes/default';
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+@source "../src";
+@utility container {
+  margin-inline: auto;
+}
+body {
+  font-family: 'Edu QLD Hand', cursive;
+}
+.card {
+  @apply border border-gray-300 shadow-lg p-2 relative rounded;
+}
+.main-input {
+  @apply block rounded-t-base px-2.5 pb-2.5 pt-5 w-full text-sm text-heading bg-neutral-secondary-medium border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand;
+}
+.main-label {
+  @apply absolute text-sm text-body duration-300 transform -translate-y-4 scale-75 top-4 z-10  start-2.5 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto;
+}
+.btn-main :root {
+  --main-color: #37b1b1;
+}
+.btn-main {
+  background-color: var(--main-color);
+  padding: 7px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.5s;
+  width: 100%;
+}
+.btn-main:disabled {
+  cursor: not-allowed;
+  background-color: #ccc;
+}
+.btn-main:disabled:hover {
+  background-color: #ccc;
+}
+.btn-main:hover {
+  background-color: #0acf83;
+  color: #fff;
+}
+
+.owl-theme .owl-dots {
+  transform: translateY(-40px);
+}
+.owl-theme .owl-dots .owl-dot span {
+  width: 18px;
+}

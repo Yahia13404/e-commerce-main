@@ -1,0 +1,68 @@
+<section class="min-h-[80vh] flex items-center justify-center py-12 px-4">
+  <div
+    class="max-w-md w-full bg-white rounded-[2.5rem] shadow-2xl shadow-gray-200/50 p-8 md:p-12 border border-gray-50"
+  >
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-black text-gray-900 tracking-tight mb-2">Welcome Back</h1>
+      <p class="text-gray-500 text-sm font-medium">Please enter your details to sign in</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="space-y-6">
+      <div class="space-y-1">
+        <app-input
+          [control]="loginForm.get('email')"
+          [typeInput]="'email'"
+          [idInput]="'email'"
+          [labelInput]="'Email Address'"
+          class="focus-within:text-emerald-500"
+        ></app-input>
+      </div>
+
+      <div class="space-y-1">
+        <div class="flex justify-between items-center px-1">
+          <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Password</label>
+          <a
+            routerLink="/forgot"
+            class="text-xs font-bold text-emerald-600 hover:text-emerald-700 transition-colors"
+          >
+            Forgot?
+          </a>
+        </div>
+        <app-input
+          [control]="loginForm.get('password')"
+          [idInput]="'password'"
+          [labelInput]="'Password'"
+          >custom field should match the pattern</app-input
+        >
+      </div>
+
+      <button
+        [disabled]="loginForm.invalid || isLoading"
+        class="w-full cursor-pointer bg-gray-900 hover:bg-emerald-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-4 rounded-2xl font-bold transition-all duration-300 shadow-lg shadow-gray-200 active:scale-95 flex items-center justify-center gap-3 mt-8"
+        type="submit"
+      >
+        @if (isLoading) {
+          <i class="fas fa-spinner fa-spin text-lg"></i>
+          <span>Authenticating...</span>
+        } @else {
+          <span>Sign In</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        }
+      </button>
+
+      @if (msgError) {
+        <div
+          class="mt-6 p-4 rounded-xl bg-red-50 border border-red-100 flex items-center gap-3 animate-pulse"
+        >
+          <i class="fa-solid fa-circle-exclamation text-red-500"></i>
+          <p class="text-xs font-bold text-red-700">{{ msgError }}</p>
+        </div>
+      }
+
+      <p class="text-center text-sm text-gray-500 mt-8">
+        Don't have an account?
+        <a routerLink="/register" class="text-emerald-600 font-bold hover:underline">Create one</a>
+      </p>
+    </form>
+  </div>
+</section>

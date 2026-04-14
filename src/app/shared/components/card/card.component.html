@@ -1,0 +1,57 @@
+<div
+  class="relative group rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden"
+>
+  <button
+    class="absolute top-4 right-4 z-20 bg-white/80 backdrop-blur-md p-2.5 rounded-full shadow-sm hover:bg-white transition-all duration-300 active:scale-75 cursor-pointer"
+    (click)="$event.stopPropagation(); iswishlist = !iswishlist; toggleIcone(product._id)"
+  >
+    <i
+      class="fa-heart text-xl transition-all duration-300"
+      [class.fa-solid]="iswishlist"
+      [class.fa-regular]="!iswishlist"
+      [class.text-red-500]="iswishlist"
+      [class.text-gray-400]="!iswishlist"
+    ></i>
+  </button>
+
+  <div [routerLink]="['/details', product.slug, product._id]" class="cursor-pointer">
+    <div class="aspect-square bg-gray-50/50 overflow-hidden flex items-center justify-center p-6">
+      <img
+        [src]="product.imageCover"
+        [alt]="product.title"
+        class="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-700 ease-out"
+      />
+    </div>
+
+    <div class="p-6">
+      <div class="flex justify-between items-start mb-1">
+        <span class="text-[10px] font-black uppercase tracking-[0.15em] text-emerald-600">
+          {{ product.category.name }}
+        </span>
+        <div class="flex items-center gap-1">
+          <i class="fa-solid fa-star text-yellow-400 text-[10px]"></i>
+          <span class="text-xs font-bold text-gray-500">{{ product.ratingsAverage }}</span>
+        </div>
+      </div>
+
+      <h2
+        class="text-gray-800 font-bold text-lg leading-tight truncate group-hover:text-emerald-600 transition-colors"
+      >
+        {{ product.title }}
+      </h2>
+
+      <div class="mt-4 flex items-baseline gap-1">
+        <span class="text-2xl font-black text-gray-900">{{ product.price }}</span>
+        <span class="text-xs font-bold text-gray-400 uppercase">EGP</span>
+      </div>
+    </div>
+  </div>
+
+  <button
+    (click)="addProductItemtocart(product._id)"
+    class="w-full cursor-pointer bg-gray-900 hover:bg-emerald-600 text-white py-4 flex items-center justify-center gap-3 transform translate-y-full group-hover:translate-y-0 transition-all duration-300 ease-in-out font-bold uppercase tracking-widest text-xs"
+  >
+    <i class="fa-solid fa-cart-plus text-sm"></i>
+    Add To Cart
+  </button>
+</div>

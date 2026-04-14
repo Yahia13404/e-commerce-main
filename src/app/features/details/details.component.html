@@ -1,0 +1,56 @@
+<section class="py-16 bg-gray-50 min-h-[70vh] flex items-center">
+  <div class="container mx-auto px-4">
+    <div
+      class="max-w-4xl mx-auto bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 overflow-hidden border border-gray-100 flex flex-col md:flex-row"
+    >
+      <div class="md:w-5/12 bg-gray-50/50 flex items-center justify-center p-10 relative">
+        <img
+          [src]="productDetails.imageCover"
+          [alt]="productDetails.title"
+          class="w-full h-auto object-contain mix-blend-multiply hover:scale-110 transition-transform duration-500"
+        />
+        <div
+          class="absolute top-6 left-6 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm border border-gray-100 flex items-center gap-1"
+        >
+          <i class="fas fa-star text-yellow-400 text-xs"></i>
+          <span class="text-xs font-bold text-gray-700">{{ productDetails.ratingsAverage }}</span>
+        </div>
+      </div>
+
+      <div class="md:w-7/12 p-8 md:p-12 flex flex-col justify-center">
+        <header class="mb-6">
+          <span
+            class="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-2 block"
+          >
+            {{ productDetails.category.name }}
+          </span>
+          <h1 class="text-3xl font-extrabold text-gray-900 leading-tight">
+            {{ productDetails.title }}
+          </h1>
+        </header>
+
+        <p class="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-8">
+          {{ productDetails.description }}
+        </p>
+
+        <div class="flex items-center justify-between mb-8 pb-8 border-b border-gray-50">
+          <div>
+            <p class="text-[10px] text-gray-400 font-bold uppercase mb-1">Total Price</p>
+            <span class="text-3xl font-black text-gray-900">
+              {{ productDetails.price }}
+              <small class="text-xs font-bold text-emerald-600">EGP</small>
+            </span>
+          </div>
+        </div>
+
+        <button
+          (click)="addProductItemtocart(productDetails._id)"
+          class="w-full cursor-pointer bg-gray-900 hover:bg-emerald-600 text-white py-4 rounded-2xl font-bold transition-all shadow-lg active:scale-95 flex items-center justify-center gap-3 group"
+        >
+          <span class="text-sm uppercase tracking-widest">Add To Cart</span>
+          <i class="fa-solid fa-cart-plus group-hover:translate-x-1 transition-transform"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

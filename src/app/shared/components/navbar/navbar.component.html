@@ -1,0 +1,132 @@
+<nav class="bg-white/80 backdrop-blur-md w-full z-50 top-0 start-0 border-b border-gray-100 sticky">
+  <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto px-6 py-4">
+    <a routerLink="/home" class="flex items-center group">
+      <img
+        src="/images/freshcart-logo.svg"
+        class="h-8 group-hover:scale-105 transition-transform duration-300"
+        alt="fresh cart logo"
+      />
+    </a>
+
+    <button
+      data-collapse-toggle="navbar-default"
+      type="button"
+      class="inline-flex items-center p-2 w-10 h-10 justify-center text-gray-500 rounded-xl md:hidden hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-100"
+    >
+      <span class="sr-only">Open menu</span>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16m-7 6h7"
+        ></path>
+      </svg>
+    </button>
+
+    <div class="hidden w-full md:flex md:w-auto md:items-center grow" id="navbar-default">
+      @if (isLogin) {
+        <ul class="ms-10 flex flex-col md:flex-row items-center gap-1 md:gap-2">
+          <li>
+            <a
+              routerLink="/home"
+              routerLinkActive="bg-emerald-50 text-emerald-600"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/products"
+              routerLinkActive="bg-emerald-50 text-emerald-600"
+              class="px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
+            >
+              Products
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/categories"
+              routerLinkActive="bg-emerald-50 text-emerald-600"
+              class="px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
+            >
+              Categories
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/brands"
+              routerLinkActive="bg-emerald-50 text-emerald-600"
+              class="px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
+            >
+              Brands
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/wishlist"
+              routerLinkActive="bg-emerald-50 text-emerald-600"
+              class="px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
+            >
+              Wishlist
+            </a>
+          </li>
+        </ul>
+      }
+
+      <div class="ms-auto flex items-center gap-4">
+        <div class="hidden xl:flex items-center gap-3 border-r border-gray-100 pe-4 me-2">
+          <a class="text-gray-400 hover:text-emerald-600 transition-colors cursor-pointer"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+          <a class="text-gray-400 hover:text-emerald-600 transition-colors cursor-pointer"
+            ><i class="fab fa-instagram"></i
+          ></a>
+        </div>
+
+        <ul class="flex items-center gap-2">
+          @if (!isLogin) {
+            <li>
+              <a
+                routerLink="/login"
+                class="px-5 py-2.5 rounded-xl text-gray-700 font-bold hover:bg-gray-100 transition-all"
+                >Login</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/register"
+                class="px-5 py-2.5 rounded-xl bg-emerald-500 text-white font-bold hover:bg-emerald-600 shadow-lg shadow-emerald-100 transition-all"
+                >Register</a
+              >
+            </li>
+          } @else {
+            <li>
+              <a
+                routerLink="/cart"
+                class="relative p-2.5 text-gray-700 hover:text-emerald-600 transition-colors group"
+              >
+                <i class="fas fa-cart-shopping text-xl"></i>
+                <span
+                  class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-sm font-bold text-white shadow-sm ring-2 ring-white"
+                >
+                  {{ count }}
+                </span>
+              </a>
+            </li>
+            <li>
+              <button
+                (click)="signOut()"
+                class="ms-2 cursor-pointer px-4 py-2 rounded-xl border border-gray-200 text-gray-600 font-bold hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-all"
+              >
+                Sign Out
+              </button>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

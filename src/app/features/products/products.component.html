@@ -1,0 +1,57 @@
+<section class="bg-white py-20 min-h-screen">
+  <div class="container mx-auto px-6">
+    <div class="flex flex-col items-center mb-12">
+      <h2
+        class="text-4xl md:text-5xl font-bold tracking-tight bg-linear-to-r from-emerald-700 to-emerald-400 bg-clip-text text-transparent"
+      >
+        Product List
+      </h2>
+      <div class="h-1 w-24 bg-gray-200 rounded-full mt-3 overflow-hidden">
+        <div class="h-full w-1/2 bg-emerald-500"></div>
+      </div>
+    </div>
+
+    <div class="relative max-w-2xl mx-auto mb-16 group">
+      <div class="absolute inset-y-0 start-0 flex items-center ps-5 pointer-events-none">
+        <i
+          class="fa-solid fa-magnifying-glass text-gray-400 group-focus-within:text-emerald-500 transition-colors"
+        ></i>
+      </div>
+      <input
+        [(ngModel)]="text"
+        type="search"
+        placeholder="Search for products, categories, or brands..."
+        class="block w-full p-4 ps-12 text-sm text-gray-900 border border-gray-100 rounded-2xl bg-gray-50/50 focus:bg-white focus:ring-4 focus:ring-emerald-50 focus:border-emerald-500 transition-all outline-none shadow-sm"
+      />
+    </div>
+
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8"
+    >
+      @for (
+        product of productsList
+          | paginate: { id: 'foo', itemsPerPage: pageSize, currentPage: p, totalItems: total }
+          | search: text;
+        track product.id
+      ) {
+        <app-card
+          [product]="product"
+          class="hover:scale-[1.02] transition-transform duration-300"
+        />
+      }
+    </div>
+
+    <div class="mt-20 flex justify-center">
+      <div class="bg-white px-4 py-2 rounded-2xl shadow-sm border border-gray-100">
+        <pagination-controls
+          id="foo"
+          (pageChange)="getAllProductsdata($event)"
+          previousLabel="Prev"
+          nextLabel="Next"
+          class="custom-pagination"
+        >
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+</section>

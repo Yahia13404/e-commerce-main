@@ -1,0 +1,81 @@
+<section class="bg-gray-50 min-h-screen py-12">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+      <div>
+        <h1 class="text-3xl font-black text-gray-900 flex items-center gap-3">
+          My Wishlist
+          <span class="text-sm font-medium bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full">
+            {{ Wishlistitems.length }} Items
+          </span>
+        </h1>
+        <p class="text-gray-500 mt-1">Keep track of the products you love.</p>
+      </div>
+
+      <button
+        class="bg-gray-900 text-white px-6 py-3 rounded-xl font-bold hover:bg-emerald-600 transition-all flex items-center gap-2 shadow-lg shadow-gray-200"
+      >
+        <i class="fa-solid fa-cart-shopping"></i>
+        Add All to Cart
+      </button>
+    </div>
+
+    @if (Wishlistitems.length === 0) {
+      <div
+        class="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-dashed border-gray-300"
+      >
+        <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+          <i class="fa-regular fa-heart text-4xl text-gray-300"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800">Your wishlist is empty</h3>
+        <p class="text-gray-500 mb-6">Looks like you haven't added anything yet.</p>
+        <button routerLink="/products" class="text-emerald-600 font-bold hover:underline">
+          Start Shopping &rarr;
+        </button>
+      </div>
+    }
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      @for (item of Wishlistitems; track item._id) {
+        <div
+          class="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden"
+        >
+          <div class="relative aspect-square bg-gray-50 p-6 overflow-hidden">
+            <img
+              [src]="item.imageCover"
+              [alt]="item.title"
+              class="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500"
+            />
+
+            <button
+              class="absolute cursor-pointer top-4 right-4 bg-white/90 hover:bg-red-500 hover:text-white text-gray-400 p-2.5 rounded-full transition-all shadow-sm"
+              title="Remove from wishlist"
+              (click)="removeitem(item._id)"
+            >
+              <i class="fa-solid fa-trash-can text-sm"></i>
+            </button>
+          </div>
+
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+              <h2 class="font-bold text-gray-800 line-clamp-2 leading-tight h-10">
+                {{ item.title }}
+              </h2>
+            </div>
+
+            <div class="flex items-center gap-2 mb-4">
+              <span class="text-2xl font-black text-gray-900">{{ item.price }}</span>
+              <span class="text-xs font-bold text-gray-400">EGP</span>
+            </div>
+
+            <button
+              class="w-full cursor-pointer bg-emerald-50 text-emerald-600 font-bold py-3 rounded-2xl hover:bg-emerald-600 hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              <i class="fa-solid fa-cart-plus"></i>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
