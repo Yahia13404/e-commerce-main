@@ -20,6 +20,7 @@ export class NavbarComponent {
 
   @Input({ required: true }) isLogin!: boolean;
   count!: number;
+
   ngOnInit(): void {
     this.FlowbiteService.loadFlowbite((flowbite) => {
       initFlowbite();

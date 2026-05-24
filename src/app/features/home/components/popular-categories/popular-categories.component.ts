@@ -3,61 +3,57 @@ import { CategoriesService } from '../../../../core/services/categories/categori
 import { Category } from '../../../../core/models/category.interface';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
-
-
-
 @Component({
   selector: 'app-popular-categories',
-  imports:[CarouselModule],
-  templateUrl: './popular-categories.component.html', 
+  imports: [CarouselModule],
+  templateUrl: './popular-categories.component.html',
   styleUrl: './popular-categories.component.css',
-  
 })
 export class PopularCategoriesComponent implements OnInit {
-private readonly categoriesService = inject(CategoriesService);
-categoriesList:Category[] = []
-cateogriesOption: OwlOptions = {
+  private readonly categoriesService = inject(CategoriesService);
+  categoriesList: Category[] = [];
+  cateogriesOption: OwlOptions = {
     loop: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: false,
-    autoplay:true,
-    autoplayTimeout:3000,
-    autoplayHoverPause:true,
-    margin:10,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: true,
+    margin: 10,
     dots: false,
     navSpeed: 700,
     navText: ['', ''],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       400: {
-        items: 2
+        items: 2,
       },
       740: {
-        items: 3
+        items: 3,
       },
       940: {
-        items: 4
+        items: 4,
       },
       1100: {
-        items: 6
-      }
+        items: 6,
+      },
     },
-    nav: false
+    nav: false,
+  };
+  ngOnInit(): void {
+    return this.getAllcategoriesData();
   }
-ngOnInit(): void {
-  return this.getAllcategoriesData()
-}
-getAllcategoriesData():void{
-  this.categoriesService.getAllcategories().subscribe({
-    next:(res)=>{
-      this.categoriesList= res.data
-    },
-    error:(err)=>{
-      console.log(err)
-    }
-  })
-}
+  getAllcategoriesData(): void {
+    this.categoriesService.getAllcategories().subscribe({
+      next: (res) => {
+        this.categoriesList = res.data;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 }

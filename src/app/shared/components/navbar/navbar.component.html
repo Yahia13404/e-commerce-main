@@ -9,9 +9,11 @@
     </a>
 
     <button
-      data-collapse-toggle="navbar-default"
+      (click)="menu.classList.toggle('hidden')"
       type="button"
       class="inline-flex items-center p-2 w-10 h-10 justify-center text-gray-500 rounded-xl md:hidden hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-100"
+      aria-controls="navbar-default"
+      aria-expanded="false"
     >
       <span class="sr-only">Open menu</span>
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -24,15 +26,21 @@
       </svg>
     </button>
 
-    <div class="hidden w-full md:flex md:w-auto md:items-center grow" id="navbar-default">
+    <div
+      #menu
+      class="hidden w-full md:flex md:w-auto md:items-center grow order-3 md:order-2 mt-4 md:mt-0"
+      id="navbar-default"
+    >
       @if (isLogin) {
-        <ul class="ms-10 flex flex-col md:flex-row items-center gap-1 md:gap-2">
+        <ul
+          class="flex flex-col md:flex-row items-stretch md:items-center gap-2 md:ms-10 w-full md:w-auto"
+        >
           <li>
             <a
               routerLink="/home"
               routerLinkActive="bg-emerald-50 text-emerald-600"
               [routerLinkActiveOptions]="{ exact: true }"
-              class="px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
+              class="block text-center md:inline-block px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
             >
               Home
             </a>
@@ -41,7 +49,7 @@
             <a
               routerLink="/products"
               routerLinkActive="bg-emerald-50 text-emerald-600"
-              class="px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
+              class="block text-center md:inline-block px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
             >
               Products
             </a>
@@ -50,7 +58,7 @@
             <a
               routerLink="/categories"
               routerLinkActive="bg-emerald-50 text-emerald-600"
-              class="px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
+              class="block text-center md:inline-block px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
             >
               Categories
             </a>
@@ -59,7 +67,7 @@
             <a
               routerLink="/brands"
               routerLinkActive="bg-emerald-50 text-emerald-600"
-              class="px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
+              class="block text-center md:inline-block px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
             >
               Brands
             </a>
@@ -68,7 +76,7 @@
             <a
               routerLink="/wishlist"
               routerLinkActive="bg-emerald-50 text-emerald-600"
-              class="px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
+              class="block text-center md:inline-block px-4 py-2 rounded-xl text-gray-600 font-semibold hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200"
             >
               Wishlist
             </a>
@@ -76,7 +84,9 @@
         </ul>
       }
 
-      <div class="ms-auto flex items-center gap-4">
+      <div
+        class="flex flex-col md:flex-row items-center gap-4 mt-4 md:mt-0 ms-auto w-full md:w-auto border-t md:border-t-0 border-gray-100 pt-4 md:pt-0"
+      >
         <div class="hidden xl:flex items-center gap-3 border-r border-gray-100 pe-4 me-2">
           <a class="text-gray-400 hover:text-emerald-600 transition-colors cursor-pointer"
             ><i class="fab fa-facebook-f"></i
@@ -86,40 +96,42 @@
           ></a>
         </div>
 
-        <ul class="flex items-center gap-2">
+        <ul
+          class="flex flex-col md:flex-row items-stretch md:items-center gap-2 w-full md:w-auto text-center"
+        >
           @if (!isLogin) {
             <li>
               <a
                 routerLink="/login"
-                class="px-5 py-2.5 rounded-xl text-gray-700 font-bold hover:bg-gray-100 transition-all"
+                class="block md:inline-block px-5 py-2.5 rounded-xl text-gray-700 font-bold hover:bg-gray-100 transition-all"
                 >Login</a
               >
             </li>
             <li>
               <a
                 routerLink="/register"
-                class="px-5 py-2.5 rounded-xl bg-emerald-500 text-white font-bold hover:bg-emerald-600 shadow-lg shadow-emerald-100 transition-all"
+                class="block md:inline-block px-5 py-2.5 rounded-xl bg-emerald-500 text-white font-bold hover:bg-emerald-600 shadow-lg shadow-emerald-100 transition-all"
                 >Register</a
               >
             </li>
           } @else {
-            <li>
+            <li class="flex justify-center">
               <a
                 routerLink="/cart"
                 class="relative p-2.5 text-gray-700 hover:text-emerald-600 transition-colors group"
               >
                 <i class="fas fa-cart-shopping text-xl"></i>
                 <span
-                  class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-sm font-bold text-white shadow-sm ring-2 ring-white"
+                  class="absolute top-0 right-0 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-sm font-bold text-white shadow-sm ring-2 ring-white"
                 >
                   {{ count }}
                 </span>
               </a>
             </li>
-            <li>
+            <li class="w-full md:w-auto">
               <button
                 (click)="signOut()"
-                class="ms-2 cursor-pointer px-4 py-2 rounded-xl border border-gray-200 text-gray-600 font-bold hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-all"
+                class="w-full md:w-auto md:ms-2 cursor-pointer px-4 py-2 rounded-xl border border-gray-200 text-gray-600 font-bold hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-all"
               >
                 Sign Out
               </button>
